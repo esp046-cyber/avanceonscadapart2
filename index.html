@@ -1,0 +1,2137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCADA Engineer Guide 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
+            padding: 1%;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #0f2557 0%, #1e3c72 100%);
+            color: white;
+            padding: 15px 1%;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .header p {
+            font-size: 0.75em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 1%;
+            max-height: calc(100vh - 150px);
+            overflow-y: auto;
+        }
+        
+        .section {
+            margin-bottom: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .section-header {
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: white;
+            padding: 12px 1%;
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+        
+        .topic {
+            padding: 12px 1%;
+            margin: 0;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .topic:last-child {
+            border-bottom: none;
+        }
+        
+        .topic:active {
+            background: #dee2e6;
+        }
+        
+        .topic-title {
+            font-weight: 600;
+            color: #1e3c72;
+            margin-bottom: 3px;
+            font-size: 0.9em;
+        }
+        
+        .topic-desc {
+            font-size: 0.8em;
+            color: #666;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 20px 1%;
+        }
+        
+        .modal.active {
+            display: block;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 20px 2%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ff6b35;
+        }
+        
+        .modal-header h3 {
+            color: #1e3c72;
+            font-size: 1.1em;
+        }
+        
+        .close-btn {
+            background: #ff6b35;
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5em;
+            line-height: 1;
+        }
+        
+        .modal-body {
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+        
+        .modal-body h4 {
+            color: #1e3c72;
+            margin: 15px 0 8px 0;
+        }
+        
+        .modal-body ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        
+        .modal-body li {
+            margin: 5px 0;
+        }
+        
+        .modal-body pre {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 0.85em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔧 SCADA Engineer Guide 2026</h1>
+            <p>AVEVA System Platform | Avanceon Middle East, Doha</p>
+        </div>
+        
+        <div class="content">
+            <!-- Getting Started -->
+            <div class="section">
+                <div class="section-header">📚 Getting Started</div>
+                <div class="topic" data-topic="galaxy">
+                    <div class="topic-title">Your First Galaxy</div>
+                    <div class="topic-desc">Step-by-step galaxy creation from scratch</div>
+                </div>
+                <div class="topic" data-topic="template">
+                    <div class="topic-title">Creating Your First Template</div>
+                    <div class="topic-desc">Building reusable application objects</div>
+                </div>
+                <div class="topic" data-topic="symbol">
+                    <div class="topic-title">Symbol Development 101</div>
+                    <div class="topic-desc">Creating custom graphics and animations</div>
+                </div>
+                <div class="topic" data-topic="tag">
+                    <div class="topic-title">Tag Creation & I/O Mapping</div>
+                    <div class="topic-desc">Connecting to simulated/real devices</div>
+                </div>
+                <div class="topic" data-topic="script">
+                    <div class="topic-title">Script Writing Basics</div>
+                    <div class="topic-desc">QuickScript fundamentals with examples</div>
+                </div>
+                <div class="topic" data-topic="hmi">
+                    <div class="topic-title">Building Your First HMI Screen</div>
+                    <div class="topic-desc">Complete InTouch OMI walkthrough</div>
+                </div>
+            </div>
+
+            <!-- Protocol Integration -->
+            <div class="section">
+                <div class="section-header">🔌 Protocol Integration</div>
+                <div class="topic" data-topic="modbus">
+                    <div class="topic-title">Modbus TCP Connection</div>
+                    <div class="topic-desc">From device setup to tag reading</div>
+                </div>
+                <div class="topic" data-topic="opcua">
+                    <div class="topic-title">OPC UA Client Configuration</div>
+                    <div class="topic-desc">Browsing and subscribing to tags</div>
+                </div>
+                <div class="topic" data-topic="siemens">
+                    <div class="topic-title">Siemens S7 Integration</div>
+                    <div class="topic-desc">Connecting to TIA Portal PLCs</div>
+                </div>
+                <div class="topic" data-topic="ab">
+                    <div class="topic-title">Allen-Bradley Setup</div>
+                    <div class="topic-desc">ControlLogix/CompactLogix communication</div>
+                </div>
+                <div class="topic" data-topic="dnp3">
+                    <div class="topic-title">DNP3 Configuration</div>
+                    <div class="topic-desc">RTU/Master setup for utilities</div>
+                </div>
+            </div>
+
+            <!-- Project Workflows -->
+            <div class="section">
+                <div class="section-header">📋 Project Workflows</div>
+                <div class="topic" data-topic="kickoff">
+                    <div class="topic-title">Project Kickoff Checklist</div>
+                    <div class="topic-desc">What to do when assigned to new project</div>
+                </div>
+                <div class="topic" data-topic="fds">
+                    <div class="topic-title">Design Document Creation</div>
+                    <div class="topic-desc">How to write FDS (Functional Design Specification)</div>
+                </div>
+                <div class="topic" data-topic="fat">
+                    <div class="topic-title">FAT Preparation & Execution</div>
+                    <div class="topic-desc">Factory Acceptance Testing procedures</div>
+                </div>
+                <div class="topic" data-topic="sat">
+                    <div class="topic-title">SAT & Commissioning Guide</div>
+                    <div class="topic-desc">Site work and go-live procedures</div>
+                </div>
+                <div class="topic" data-topic="change">
+                    <div class="topic-title">Change Management Process</div>
+                    <div class="topic-desc">How to handle scope changes and revisions</div>
+                </div>
+                <div class="topic" data-topic="handover">
+                    <div class="topic-title">Project Handover Checklist</div>
+                    <div class="topic-desc">Deliverables and documentation requirements</div>
+                </div>
+            </div>
+
+            <!-- Troubleshooting -->
+            <div class="section">
+                <div class="section-header">🔧 Troubleshooting</div>
+                <div class="topic" data-topic="comm">
+                    <div class="topic-title">Communication Diagnostics</div>
+                    <div class="topic-desc">Step-by-step troubleshooting flowchart</div>
+                </div>
+                <div class="topic" data-topic="perf">
+                    <div class="topic-title">Performance Issue Resolution</div>
+                    <div class="topic-desc">Memory, CPU, network diagnostics</div>
+                </div>
+                <div class="topic" data-topic="alarm">
+                    <div class="topic-title">Alarm System Debugging</div>
+                    <div class="topic-desc">Finding and fixing alarm configuration issues</div>
+                </div>
+                <div class="topic" data-topic="license">
+                    <div class="topic-title">License Troubleshooting</div>
+                    <div class="topic-desc">Resolving licensing errors</div>
+                </div>
+            </div>
+
+            <!-- Best Practices -->
+            <div class="section">
+                <div class="section-header">✅ Best Practices</div>
+                <div class="topic" data-topic="naming">
+                    <div class="topic-title">Avanceon Naming Conventions</div>
+                    <div class="topic-desc">Standard tag, object, and file naming</div>
+                </div>
+                <div class="topic" data-topic="review">
+                    <div class="topic-title">Code Review Checklist</div>
+                    <div class="topic-desc">What to check before submitting work</div>
+                </div>
+                <div class="topic" data-topic="graphics">
+                    <div class="topic-title">Graphics Standards</div>
+                    <div class="topic-desc">Avanceon HMI design guidelines</div>
+                </div>
+                <div class="topic" data-topic="backup">
+                    <div class="topic-title">Backup & Version Control</div>
+                    <div class="topic-desc">How and when to backup your work</div>
+                </div>
+                <div class="topic" data-topic="security">
+                    <div class="topic-title">Security Hardening Checklist</div>
+                    <div class="topic-desc">Implementing cybersecurity measures</div>
+                </div>
+            </div>
+
+            <!-- Quick Reference -->
+            <div class="section">
+                <div class="section-header">⚡ Quick Reference</div>
+                <div class="topic" data-topic="shortcuts">
+                    <div class="topic-title">Keyboard Shortcuts</div>
+                    <div class="topic-desc">IDE, InTouch, Windows Maker</div>
+                </div>
+                <div class="topic" data-topic="functions">
+                    <div class="topic-title">Common Script Functions</div>
+                    <div class="topic-desc">Most commonly used QuickScript functions</div>
+                </div>
+                <div class="topic" data-topic="colors">
+                    <div class="topic-title">Color Code Standards</div>
+                    <div class="topic-desc">HMI color meanings (ISA-101)</div>
+                </div>
+                <div class="topic" data-topic="ports">
+                    <div class="topic-title">Network Port Reference</div>
+                    <div class="topic-desc">Common industrial protocols and ports</div>
+                </div>
+            </div>
+
+            <!-- Client-Specific Guides -->
+            <div class="section">
+                <div class="section-header">🏭 Client-Specific Guides</div>
+                <div class="topic" data-topic="oilgas">
+                    <div class="topic-title">Oil & Gas Projects</div>
+                    <div class="topic-desc">Industry-specific requirements and standards</div>
+                </div>
+                <div class="topic" data-topic="water">
+                    <div class="topic-title">Water/Wastewater Systems</div>
+                    <div class="topic-desc">SCADA specifics for utilities</div>
+                </div>
+                <div class="topic" data-topic="power">
+                    <div class="topic-title">Power Generation</div>
+                    <div class="topic-desc">Requirements for power plants and substations</div>
+                </div>
+                <div class="topic" data-topic="manufacturing">
+                    <div class="topic-title">Manufacturing Systems</div>
+                    <div class="topic-desc">Batch processing and MES integration</div>
+                </div>
+                <div class="topic" data-topic="qp">
+                    <div class="topic-title">Qatar Petroleum Standards</div>
+                    <div class="topic-desc">Complying with QP requirements</div>
+                </div>
+                <div class="topic" data-topic="kahramaa">
+                    <div class="topic-title">Kahramaa Projects</div>
+                    <div class="topic-desc">Utility standards in Qatar</div>
+                </div>
+            </div>
+
+            <!-- Advanced Topics -->
+            <div class="section">
+                <div class="section-header">🚀 Advanced Topics</div>
+                <div class="topic" data-topic="redundancy">
+                    <div class="topic-title">Redundancy Configuration</div>
+                    <div class="topic-desc">Setting up failover systems</div>
+                </div>
+                <div class="topic" data-topic="historian">
+                    <div class="topic-title">Historian Replication</div>
+                    <div class="topic-desc">Multi-site data synchronization</div>
+                </div>
+                <div class="topic" data-topic="mes">
+                    <div class="topic-title">MES Integration</div>
+                    <div class="topic-desc">Connecting to manufacturing execution systems</div>
+                </div>
+                <div class="topic" data-topic="dotnet">
+                    <div class="topic-title">Custom .NET Development</div>
+                    <div class="topic-desc">Extending System Platform with code</div>
+                </div>
+                <div class="topic" data-topic="sql">
+                    <div class="topic-title">SQL Database Integration</div>
+                    <div class="topic-desc">Custom reporting and data storage</div>
+                </div>
+                <div class="topic" data-topic="mobile">
+                    <div class="topic-title">Mobile HMI Development</div>
+                    <div class="topic-desc">Creating mobile-responsive interfaces</div>
+                </div>
+            </div>
+
+            <!-- Tools & Utilities -->
+            <div class="section">
+                <div class="section-header">🛠️ Tools & Utilities</div>
+                <div class="topic" data-topic="logviewer">
+                    <div class="topic-title">Using LogViewer</div>
+                    <div class="topic-desc">Finding errors in system logs</div>
+                </div>
+                <div class="topic" data-topic="galaxydump">
+                    <div class="topic-title">Galaxy Dump/Load</div>
+                    <div class="topic-desc">Backup and migration procedures</div>
+                </div>
+                <div class="topic" data-topic="bulk">
+                    <div class="topic-title">Bulk Import/Export</div>
+                    <div class="topic-desc">Managing large tag databases</div>
+                </div>
+                <div class="topic" data-topic="perfmon">
+                    <div class="topic-title">Performance Monitor</div>
+                    <div class="topic-desc">Tracking system health</div>
+                </div>
+                <div class="topic" data-topic="network">
+                    <div class="topic-title">Network Diagnostics</div>
+                    <div class="topic-desc">Wireshark, ping, traceroute for industrial networks</div>
+                </div>
+            </div>
+
+            <!-- Soft Skills & Regional Knowledge -->
+            <div class="section">
+                <div class="section-header">🌍 Soft Skills & Regional Knowledge</div>
+                <div class="topic" data-topic="communication">
+                    <div class="topic-title">Client Communication Guide</div>
+                    <div class="topic-desc">Professional interaction protocols</div>
+                </div>
+                <div class="topic" data-topic="qatar">
+                    <div class="topic-title">Working in Qatar/MEA</div>
+                    <div class="topic-desc">Cultural awareness and business etiquette</div>
+                </div>
+                <div class="topic" data-topic="arabic">
+                    <div class="topic-title">Arabic Language Basics</div>
+                    <div class="topic-desc">Common technical terms and phrases</div>
+                </div>
+                <div class="topic" data-topic="timemanagement">
+                    <div class="topic-title">Time Management</div>
+                    <div class="topic-desc">Handling multiple projects simultaneously</div>
+                </div>
+                <div class="topic" data-topic="safety">
+                    <div class="topic-title">Safety Procedures</div>
+                    <div class="topic-desc">Site safety requirements in the region</div>
+                </div>
+                <div class="topic" data-topic="travel">
+                    <div class="topic-title">Travel & Logistics</div>
+                    <div class="topic-desc">Managing site visits and commissioning trips</div>
+                </div>
+            </div>
+
+            <!-- Additional Best Practices -->
+            <div class="section">
+                <div class="section-header">📄 Documentation Standards</div>
+                <div class="topic" data-topic="templates">
+                    <div class="topic-title">Documentation Templates</div>
+                    <div class="topic-desc">Standard formats for all deliverables</div>
+                </div>
+            </div>
+
+            <!-- Additional Quick Reference -->
+            <div class="section">
+                <div class="section-header">📊 Additional Reference</div>
+                <div class="topic" data-topic="alarmpriority">
+                    <div class="topic-title">Alarm Priority Guidelines</div>
+                    <div class="topic-desc">ISA-18.2 compliant prioritization</div>
+                </div>
+                <div class="topic" data-topic="sqlqueries">
+                    <div class="topic-title">SQL Query Templates</div>
+                    <div class="topic-desc">Historian and database queries</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle"></h3>
+                <button class="close-btn" id="closeBtn">×</button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        const content = {
+            galaxy: {
+                title: 'Your First Galaxy',
+                body: `<h4>Creating Your First Galaxy</h4>
+                <p>A Galaxy is the core container for all AVEVA System Platform objects.</p>
+                <ul>
+                    <li><strong>Step 1:</strong> Open ArchestrA IDE from Start Menu</li>
+                    <li><strong>Step 2:</strong> Click File > New Galaxy</li>
+                    <li><strong>Step 3:</strong> Enter Galaxy Name (e.g., "MyPlant_Galaxy")</li>
+                    <li><strong>Step 4:</strong> Select SQL Server instance and create new database</li>
+                    <li><strong>Step 5:</strong> Configure authentication (Windows or SQL)</li>
+                    <li><strong>Step 6:</strong> Set security groups and permissions</li>
+                    <li><strong>Step 7:</strong> Deploy standard ArchestrA templates</li>
+                </ul>
+                <h4>Best Practices</h4>
+                <ul>
+                    <li>Use meaningful naming conventions (Site_Area_Galaxy)</li>
+                    <li>Document galaxy purpose and scope</li>
+                    <li>Regular backups (Galaxy Dump)</li>
+                    <li>Version control from day one</li>
+                </ul>`
+            },
+            template: {
+                title: 'Creating Your First Template',
+                body: `<h4>Template Development</h4>
+                <p>Templates are reusable objects that form the foundation of SCADA applications.</p>
+                <ul>
+                    <li><strong>Understanding Templates:</strong> Master objects that define structure and behavior</li>
+                    <li><strong>Template Types:</strong> $UserDefined, $WinPlatform, $ApplicationObject</li>
+                    <li><strong>Creating Process:</strong> Right-click > New Template > Configure attributes</li>
+                    <li><strong>Derivation:</strong> Create instances from templates for rapid deployment</li>
+                    <li><strong>Inheritance:</strong> Changes propagate from parent to children</li>
+                </ul>
+                <h4>Example: Motor Template</h4>
+                <ul>
+                    <li>Add attributes: RunStatus (Boolean), Speed (Float), Alarms</li>
+                    <li>Create scripts: Start(), Stop(), Emergency_Stop()</li>
+                    <li>Configure graphics and symbols</li>
+                    <li>Deploy and create instances</li>
+                </ul>`
+            },
+            symbol: {
+                title: 'Symbol Development 101',
+                body: `<h4>Graphic Symbol Creation</h4>
+                <p>Symbols provide visual representation of process equipment and data.</p>
+                <ul>
+                    <li><strong>ArchestrA Graphics:</strong> Vector-based, reusable symbols</li>
+                    <li><strong>Tools:</strong> Rectangle, Circle, Line, Text, Import SVG</li>
+                    <li><strong>Animations:</strong> Color, Visibility, Position, Rotation based on tags</li>
+                    <li><strong>Touch Targets:</strong> Buttons and interaction zones for operators</li>
+                </ul>
+                <h4>Animation Types</h4>
+                <ul>
+                    <li><strong>Discrete:</strong> ON/OFF states (valve open/closed)</li>
+                    <li><strong>Analog:</strong> Level indicators, bar graphs</li>
+                    <li><strong>Color:</strong> Status indication (green=running, red=stopped)</li>
+                    <li><strong>MultiState:</strong> Multiple conditions with different graphics</li>
+                </ul>`
+            },
+            tag: {
+                title: 'Tag Creation & I/O Mapping',
+                body: `<h4>Tag Configuration</h4>
+                <p>Tags are data points that connect SCADA to field devices.</p>
+                <ul>
+                    <li><strong>Memory Tags:</strong> Internal calculations (no I/O)</li>
+                    <li><strong>I/O Tags:</strong> Connected to PLCs and RTUs</li>
+                    <li><strong>Data Types:</strong> Boolean, Integer, Float, String</li>
+                    <li><strong>Scan Groups:</strong> Organize tags by update rate</li>
+                </ul>
+                <h4>I/O Mapping Process</h4>
+                <ul>
+                    <li>Create Device Integration (DI) object for your PLC</li>
+                    <li>Configure communication parameters (IP, port, protocol)</li>
+                    <li>Import tag database or manually create tags</li>
+                    <li>Map PLC addresses to SCADA tags</li>
+                    <li>Test communication and verify data flow</li>
+                </ul>`
+            },
+            script: {
+                title: 'Script Writing Basics',
+                body: `<h4>QuickScript Programming</h4>
+                <p>QuickScript is the scripting language for AVEVA System Platform (VB-based).</p>
+                <h4>Common Script Types</h4>
+                <ul>
+                    <li><strong>Startup:</strong> Execute on object initialization</li>
+                    <li><strong>Shutdown:</strong> Cleanup when stopping</li>
+                    <li><strong>On Change:</strong> Triggered by tag value changes</li>
+                    <li><strong>Periodic:</strong> Execute at fixed intervals</li>
+                </ul>
+                <h4>Example Scripts</h4>
+                <p><strong>Simple Command Script:</strong></p>
+                <pre>Sub Start_Motor()
+    Me.Command = 1;
+    Me.Status = "Starting";
+    LogMessage("Motor started by " & UserName);
+End Sub</pre>
+                <p><strong>Alarm Check:</strong></p>
+                <pre>If Me.Temperature > Me.HighLimit Then
+    Me.TempAlarm.Value = 1;
+Else
+    Me.TempAlarm.Value = 0;
+End If</pre>`
+            },
+            hmi: {
+                title: 'Building Your First HMI Screen',
+                body: `<h4>InTouch OMI Development</h4>
+                <p>InTouch OMI (Operations Management Interface) is the modern HMI for System Platform.</p>
+                <ul>
+                    <li><strong>Create New Screen:</strong> Right-click Screens folder > New</li>
+                    <li><strong>Set Resolution:</strong> Match client displays (1920x1080 common)</li>
+                    <li><strong>Add Navigation:</strong> Header with home, alarms, trends buttons</li>
+                    <li><strong>Place Symbols:</strong> Drag templates from Galaxy</li>
+                    <li><strong>Data Binding:</strong> Link symbols to live tags</li>
+                    <li><strong>Add Trends:</strong> Historical data visualization</li>
+                    <li><strong>Configure Alarms:</strong> Alarm banner and summary</li>
+                </ul>
+                <h4>Screen Design Guidelines</h4>
+                <ul>
+                    <li>Follow ISA-101 HMI standards</li>
+                    <li>Use consistent color schemes</li>
+                    <li>Proper alarm prioritization</li>
+                    <li>Clear navigation structure</li>
+                    <li>Touch-friendly sizing (minimum 44x44 pixels)</li>
+                </ul>`
+            },
+            modbus: {
+                title: 'Modbus TCP Connection',
+                body: `<h4>Modbus TCP Configuration</h4>
+                <p>Modbus TCP is one of the most common industrial protocols.</p>
+                <h4>Setup Steps</h4>
+                <ul>
+                    <li><strong>Create DI Object:</strong> Derive from $ModbusTCPClient</li>
+                    <li><strong>Configure IP:</strong> Set device IP address (e.g., 192.168.1.100)</li>
+                    <li><strong>Port:</strong> Default 502</li>
+                    <li><strong>Slave ID:</strong> Device unit identifier (1-247)</li>
+                    <li><strong>Scan Rate:</strong> Typically 100-1000ms</li>
+                </ul>
+                <h4>Address Mapping</h4>
+                <ul>
+                    <li><strong>Coils (0x):</strong> Digital outputs</li>
+                    <li><strong>Discrete Inputs (1x):</strong> Digital inputs</li>
+                    <li><strong>Input Registers (3x):</strong> Analog inputs</li>
+                    <li><strong>Holding Registers (4x):</strong> Analog outputs/storage</li>
+                </ul>
+                <p><strong>Example:</strong> 400001 = Holding Register 1, 300045 = Input Register 45</p>`
+            },
+            opcua: {
+                title: 'OPC UA Client Configuration',
+                body: `<h4>OPC UA Integration</h4>
+                <p>OPC UA is the modern standard for industrial communication.</p>
+                <ul>
+                    <li><strong>Create DAServer:</strong> Configure OPC UA DA Server object</li>
+                    <li><strong>Endpoint URL:</strong> opc.tcp://server:4840/</li>
+                    <li><strong>Security:</strong> None, Sign, SignAndEncrypt options</li>
+                    <li><strong>Authentication:</strong> Anonymous or Username/Password</li>
+                    <li><strong>Browse Server:</strong> Use OPC UA Client tool to explore tags</li>
+                    <li><strong>Subscribe:</strong> Add tags to scan groups</li>
+                </ul>
+                <h4>Best Practices</h4>
+                <ul>
+                    <li>Use secure connections in production</li>
+                    <li>Organize tags by area/equipment</li>
+                    <li>Monitor connection health</li>
+                    <li>Handle reconnection gracefully</li>
+                </ul>`
+            },
+            siemens: {
+                title: 'Siemens S7 Integration',
+                body: `<h4>Siemens S7 Communication</h4>
+                <p>Direct connection to Siemens PLCs (S7-300, S7-400, S7-1200, S7-1500).</p>
+                <h4>Configuration Steps</h4>
+                <ul>
+                    <li><strong>Protocol:</strong> Use S7TCP or OPC UA</li>
+                    <li><strong>PLC Settings:</strong> Enable PUT/GET in TIA Portal</li>
+                    <li><strong>Connection Type:</strong> ISO-on-TCP (Port 102)</li>
+                    <li><strong>Rack/Slot:</strong> Typically Rack 0, Slot 1</li>
+                    <li><strong>Data Blocks:</strong> Access DB1, DB2, etc.</li>
+                </ul>
+                <h4>Address Format</h4>
+                <ul>
+                    <li><strong>DB Access:</strong> DB1.DBW10 (Word 10 in DB1)</li>
+                    <li><strong>Memory:</strong> MW100 (Memory Word 100)</li>
+                    <li><strong>Inputs:</strong> IB5 (Input Byte 5)</li>
+                    <li><strong>Outputs:</strong> QB3 (Output Byte 3)</li>
+                </ul>`
+            },
+            ab: {
+                title: 'Allen-Bradley Setup',
+                body: `<h4>Allen-Bradley Rockwell Integration</h4>
+                <p>Connect to ControlLogix and CompactLogix PLCs via EtherNet/IP.</p>
+                <ul>
+                    <li><strong>Protocol:</strong> CIP (Common Industrial Protocol)</li>
+                    <li><strong>Port:</strong> 44818 (EtherNet/IP)</li>
+                    <li><strong>Path:</strong> Slot number (e.g., 1,0 for slot 0)</li>
+                    <li><strong>Tag Addressing:</strong> Use PLC tag names directly</li>
+                    <li><strong>Data Types:</strong> DINT, REAL, BOOL, STRING supported</li>
+                </ul>
+                <h4>Example Tags</h4>
+                <ul>
+                    <li>Motor_01.Speed (REAL)</li>
+                    <li>Conveyor[5].Running (BOOL)</li>
+                    <li>Tank_Level (REAL)</li>
+                </ul>`
+            },
+            dnp3: {
+                title: 'DNP3 Configuration',
+                body: `<h4>DNP3 Protocol Setup</h4>
+                <p>DNP3 is widely used in utilities and power systems.</p>
+                <ul>
+                    <li><strong>Master Configuration:</strong> SCADA acts as DNP3 master</li>
+                    <li><strong>Outstation:</strong> Remote RTUs/IEDs</li>
+                    <li><strong>Port:</strong> 20000 (TCP) or Serial RS232/485</li>
+                    <li><strong>Addresses:</strong> Master/Slave addresses (1-65519)</li>
+                    <li><strong>Object Groups:</strong> Binary inputs, analog inputs, counters</li>
+                </ul>
+                <h4>Point Types</h4>
+                <ul>
+                    <li><strong>Binary Inputs:</strong> Breaker status, alarms</li>
+                    <li><strong>Binary Outputs:</strong> Commands to field devices</li>
+                    <li><strong>Analog Inputs:</strong> Voltage, current, power</li>
+                    <li><strong>Counters:</strong> Energy meters, pulse counts</li>
+                </ul>`
+            },
+            kickoff: {
+                title: 'Project Kickoff Checklist',
+                body: `<h4>New Project Kickoff</h4>
+                <ul>
+                    <li>Review project scope and specifications</li>
+                    <li>Understand client requirements and standards</li>
+                    <li>Request all design documents (P&IDs, I/O lists, network diagrams)</li>
+                    <li>Set up project folder structure on network drive</li>
+                    <li>Create Galaxy and database backups schedule</li>
+                    <li>Establish communication with project team and client</li>
+                    <li>Identify required hardware and software licenses</li>
+                    <li>Schedule kickoff meeting and site survey</li>
+                    <li>Create project timeline with milestones</li>
+                    <li>Set up version control and change management</li>
+                </ul>`
+            },
+            fds: {
+                title: 'Design Document Creation',
+                body: `<h4>Functional Design Specification (FDS)</h4>
+                <p>The FDS is the blueprint for your SCADA system.</p>
+                <h4>Key Sections</h4>
+                <ul>
+                    <li><strong>1. Introduction:</strong> Project overview, scope, objectives</li>
+                    <li><strong>2. System Architecture:</strong> Network topology, server specs</li>
+                    <li><strong>3. Tag Database:</strong> Complete I/O list with descriptions</li>
+                    <li><strong>4. HMI Design:</strong> Screen layouts, navigation structure</li>
+                    <li><strong>5. Alarm Philosophy:</strong> Priorities, handling procedures</li>
+                    <li><strong>6. Reporting:</strong> Required reports and formats</li>
+                    <li><strong>7. Integration:</strong> Third-party systems, protocols</li>
+                    <li><strong>8. Security:</strong> User roles, access levels</li>
+                    <li><strong>9. Testing Plan:</strong> FAT and SAT procedures</li>
+                </ul>`
+            },
+            fat: {
+                title: 'FAT Preparation & Execution',
+                body: `<h4>Factory Acceptance Test (FAT)</h4>
+                <p>FAT verifies system functionality before site deployment.</p>
+                <h4>Preparation</h4>
+                <ul>
+                    <li>Complete all development and internal testing</li>
+                    <li>Set up FAT environment (simulated I/O if needed)</li>
+                    <li>Prepare FAT test scripts based on FDS</li>
+                    <li>Coordinate FAT date with client</li>
+                    <li>Arrange recording equipment for evidence</li>
+                </ul>
+                <h4>Execution</h4>
+                <ul>
+                    <li>Demonstrate all functional requirements</li>
+                    <li>Test all HMI screens and navigation</li>
+                    <li>Verify alarm handling and acknowledgement</li>
+                    <li>Test all communication protocols</li>
+                    <li>Document any issues in punchlist</li>
+                    <li>Obtain client sign-off</li>
+                </ul>`
+            },
+            sat: {
+                title: 'SAT & Commissioning Guide',
+                body: `<h4>Site Acceptance Test (SAT) & Commissioning</h4>
+                <h4>Pre-Site Checklist</h4>
+                <ul>
+                    <li>Verify all hardware delivered and installed</li>
+                    <li>Ensure network infrastructure ready</li>
+                    <li>Obtain site access and safety clearances</li>
+                    <li>Prepare laptop with all software and backups</li>
+                    <li>Coordinate with client operations team</li>
+                </ul>
+                <h4>Commissioning Steps</h4>
+                <ul>
+                    <li>Install and configure SCADA software</li>
+                    <li>Connect to field devices and verify communication</li>
+                    <li>Calibrate and verify all I/O points</li>
+                    <li>Test with actual process equipment</li>
+                    <li>Train operators on system usage</li>
+                    <li>Document final configuration</li>
+                    <li>Handover to operations</li>
+                </ul>`
+            },
+            change: {
+                title: 'Change Management Process',
+                body: `<h4>Managing Project Changes</h4>
+                <ul>
+                    <li><strong>Change Request:</strong> Document all requested changes formally</li>
+                    <li><strong>Impact Analysis:</strong> Assess effect on schedule, cost, resources</li>
+                    <li><strong>Client Approval:</strong> Get written approval before proceeding</li>
+                    <li><strong>Update Documentation:</strong> Revise FDS and drawings</li>
+                    <li><strong>Version Control:</strong> Tag releases in Galaxy</li>
+                    <li><strong>Testing:</strong> Re-test affected areas</li>
+                    <li><strong>Communication:</strong> Inform all stakeholders</li>
+                </ul>`
+            },
+            handover: {
+                title: 'Project Handover Checklist',
+                body: `<h4>Project Handover Deliverables</h4>
+                <ul>
+                    <li><strong>Software:</strong> Final Galaxy backup, application installers</li>
+                    <li><strong>Documentation:</strong> As-built drawings, FDS, user manuals</li>
+                    <li><strong>Source Files:</strong> Graphics, scripts, configurations</li>
+                    <li><strong>Training Materials:</strong> Operator guides, admin manuals</li>
+                    <li><strong>Test Records:</strong> FAT/SAT reports with sign-offs</li>
+                    <li><strong>Licenses:</strong> Software keys and certificates</li>
+                    <li><strong>Support Plan:</strong> Contact info and support procedures</li>
+                    <li><strong>Warranty Info:</strong> Hardware warranty documentation</li>
+                </ul>`
+            },
+            comm: {
+                title: 'Communication Diagnostics',
+                body: `<h4>Communication Troubleshooting Guide</h4>
+                <h4>Step 1: Verify Physical Connection</h4>
+                <ul>
+                    <li>Check cable connections</li>
+                    <li>Verify network switch ports are active (LED indicators)</li>
+                    <li>Ping device IP address from SCADA server</li>
+                </ul>
+                <h4>Step 2: Check Network Configuration</h4>
+                <ul>
+                    <li>Verify IP address, subnet mask, gateway</li>
+                    <li>Check firewall rules and port accessibility</li>
+                    <li>Ensure no IP conflicts on network</li>
+                </ul>
+                <h4>Step 3: Protocol-Specific Checks</h4>
+                <ul>
+                    <li><strong>Modbus:</strong> Verify slave ID and register addresses</li>
+                    <li><strong>OPC UA:</strong> Check endpoint URL and security settings</li>
+                    <li><strong>S7:</strong> Confirm rack/slot and connection type</li>
+                </ul>
+                <h4>Step 4: SCADA Configuration</h4>
+                <ul>
+                    <li>Check DI object deployment status</li>
+                    <li>Verify scan groups are running</li>
+                    <li>Review LogViewer for error messages</li>
+                </ul>`
+            },
+            perf: {
+                title: 'Performance Issue Resolution',
+                body: `<h4>System Performance Optimization</h4>
+                <h4>Symptoms & Solutions</h4>
+                <ul>
+                    <li><strong>High CPU Usage:</strong> Reduce scan rates, optimize scripts, check for infinite loops</li>
+                    <li><strong>Memory Leaks:</strong> Monitor process memory, restart services periodically, update to latest patches</li>
+                    <li><strong>Slow Response:</strong> Check network latency, reduce graphic complexity</li>
+                    <li><strong>Database Issues:</strong> Optimize queries, rebuild indexes, archive old data</li>
+                </ul>
+                <h4>Monitoring Tools</h4>
+                <ul>
+                    <li>Task Manager - CPU and memory usage</li>
+                    <li>Performance Monitor - System counters</li>
+                    <li>LogViewer - System logs and errors</li>
+                    <li>Network Monitor - Traffic analysis</li>
+                </ul>`
+            },
+            alarm: {
+                title: 'Alarm System Debugging',
+                body: `<h4>Alarm Troubleshooting</h4>
+                <ul>
+                    <li><strong>Missing Alarms:</strong> Check alarm configuration, verify tag values</li>
+                    <li><strong>False Alarms:</strong> Review deadbands and delays</li>
+                    <li><strong>Alarm Floods:</strong> Implement suppression logic</li>
+                    <li><strong>Not Clearing:</strong> Check return-to-normal conditions</li>
+                    <li><strong>Prioritization:</strong> Review ISA-18.2 standards</li>
+                </ul>
+                <h4>Common Issues</h4>
+                <ul>
+                    <li>Incorrect alarm limits</li>
+                    <li>Missing acknowledgement logic</li>
+                    <li>Database connection problems</li>
+                    <li>Historian not logging</li>
+                </ul>`
+            },
+            license: {
+                title: 'License Troubleshooting',
+                body: `<h4>Resolving Licensing Errors</h4>
+                <ul>
+                    <li><strong>License Not Found:</strong> Check license server connection</li>
+                    <li><strong>Expired License:</strong> Contact Avanceon for renewal</li>
+                    <li><strong>Feature Not Licensed:</strong> Verify license includes required features</li>
+                    <li><strong>Concurrent Users:</strong> Check available licenses</li>
+                </ul>
+                <h4>License Manager</h4>
+                <ul>
+                    <li>Open License Management Console</li>
+                    <li>Verify server name and port</li>
+                    <li>Check license file validity</li>
+                    <li>Refresh license cache</li>
+                </ul>`
+            },
+            naming: {
+                title: 'Avanceon Naming Conventions',
+                body: `<h4>Naming Standards</h4>
+                <p>Consistent naming is critical for maintainability.</p>
+                <h4>Galaxy Objects</h4>
+                <ul>
+                    <li><strong>Format:</strong> Area_Equipment_Type (e.g., Pump_001_Motor)</li>
+                    <li><strong>Templates:</strong> tmpl_EquipmentType (e.g., tmpl_Motor)</li>
+                    <li><strong>Instances:</strong> Area_Equipment_Number</li>
+                </ul>
+                <h4>Tags</h4>
+                <ul>
+                    <li><strong>Boolean:</strong> Equipment_Status (e.g., Pump01_Running)</li>
+                    <li><strong>Analog:</strong> Equipment_Parameter (e.g., Tank01_Level)</li>
+                    <li><strong>Commands:</strong> Equipment_Cmd (e.g., Valve01_OpenCmd)</li>
+                </ul>`
+            },
+            review: {
+                title: 'Code Review Checklist',
+                body: `<h4>Pre-Submission Review</h4>
+                <ul>
+                    <li>All scripts compile without errors</li>
+                    <li>Naming conventions followed</li>
+                    <li>Comments added to complex logic</li>
+                    <li>No hardcoded values (use parameters)</li>
+                    <li>Error handling implemented</li>
+                    <li>Test all functionality</li>
+                    <li>Graphics meet standards</li>
+                    <li>Documentation updated</li>
+                    <li>Backup created before changes</li>
+                    <li>Version tagged in Galaxy</li>
+                </ul>`
+            },
+            graphics: {
+                title: 'Graphics Standards',
+                body: `<h4>Avanceon HMI Design Guidelines</h4>
+                <ul>
+                    <li>Follow ISA-101 standards</li>
+                    <li>Use standard color codes (ISA-5.5)</li>
+                    <li>Green = Running, Red = Stopped, Yellow = Warning</li>
+                    <li>Minimum button size: 44x44 pixels</li>
+                    <li>Consistent fonts and sizes</li>
+                    <li>Clear alarm indication</li>
+                    <li>Logical navigation structure</li>
+                    <li>Responsive design for different screens</li>
+                </ul>`
+            },
+            backup: {
+                title: 'Backup & Version Control',
+                body: `<h4>Data Protection</h4>
+                <h4>Daily Backups</h4>
+                <ul>
+                    <li>Galaxy Dump at end of day</li>
+                    <li>Save to network drive</li>
+                    <li>Include timestamp in filename</li>
+                </ul>
+                <h4>Version Control</h4>
+                <ul>
+                    <li>Tag major releases in Galaxy</li>
+                    <li>Document changes in release notes</li>
+                    <li>Keep previous versions for rollback</li>
+                    <li>Use meaningful version numbers</li>
+                </ul>
+                <h4>Critical Files</h4>
+                <ul>
+                    <li>Galaxy backups (.aaPKG)</li>
+                    <li>Graphics source files</li>
+                    <li>Scripts and configurations</li>
+                    <li>Documentation</li>
+                </ul>`
+            },
+            security: {
+                title: 'Security Hardening Checklist',
+                body: `<h4>Cybersecurity Measures</h4>
+                <ul>
+                    <li><strong>Network:</strong> Firewalls, VLANs, DMZ</li>
+                    <li><strong>Authentication:</strong> Strong passwords, 2FA</li>
+                    <li><strong>Authorization:</strong> Role-based access control</li>
+                    <li><strong>Encryption:</strong> TLS for communications</li>
+                    <li><strong>Auditing:</strong> Log all access and changes</li>
+                    <li><strong>Updates:</strong> Regular security patches</li>
+                    <li><strong>Backup:</strong> Encrypted offline backups</li>
+                    <li><strong>Physical:</strong> Locked server rooms</li>
+                </ul>`
+            },
+            shortcuts: {
+                title: 'Keyboard Shortcuts',
+                body: `<h4>ArchestrA IDE Shortcuts</h4>
+                <ul>
+                    <li><strong>Ctrl+N:</strong> New Object</li>
+                    <li><strong>Ctrl+S:</strong> Save</li>
+                    <li><strong>F5:</strong> Deploy</li>
+                    <li><strong>F7:</strong> Build Script</li>
+                    <li><strong>Ctrl+F:</strong> Find</li>
+                    <li><strong>Ctrl+H:</strong> Replace</li>
+                </ul>
+                <h4>InTouch OMI</h4>
+                <ul>
+                    <li><strong>Ctrl+G:</strong> Grid Toggle</li>
+                    <li><strong>Ctrl+R:</strong> Runtime</li>
+                    <li><strong>Alt+F4:</strong> Close Runtime</li>
+                    <li><strong>F12:</strong> Full Screen</li>
+                </ul>`
+            },
+            functions: {
+                title: 'Common Script Functions',
+                body: `<h4>QuickScript Reference</h4>
+                <ul>
+                    <li><strong>LogMessage():</strong> Write to system log</li>
+                    <li><strong>InvokeScript():</strong> Call another script</li>
+                    <li><strong>StringFormat():</strong> Format strings</li>
+                    <li><strong>GetAttributeValue():</strong> Read attribute</li>
+                    <li><strong>SetAttributeValue():</strong> Write attribute</li>
+                    <li><strong>Sleep():</strong> Pause execution</li>
+                    <li><strong>Now():</strong> Get current date/time</li>
+                </ul>`
+            },
+            colors: {
+                title: 'Color Code Standards',
+                body: `<h4>HMI Color Meanings (ISA-101)</h4>
+                <ul>
+                    <li><strong>Green:</strong> Normal operation, running</li>
+                    <li><strong>Red:</strong> Alarm, stopped, emergency</li>
+                    <li><strong>Yellow:</strong> Warning, caution</li>
+                    <li><strong>Blue:</strong> Manual mode, operator action required</li>
+                    <li><strong>Gray:</strong> Disabled, out of service</li>
+                    <li><strong>White:</strong> Normal text</li>
+                    <li><strong>Black:</strong> Background</li>
+                </ul>`
+            },
+            ports: {
+                title: 'Network Port Reference',
+                body: `<h4>Common Industrial Protocols and Ports</h4>
+                <ul>
+                    <li><strong>Modbus TCP:</strong> 502</li>
+                    <li><strong>OPC UA:</strong> 4840</li>
+                    <li><strong>OPC DA:</strong> 135, 4096-4100</li>
+                    <li><strong>Siemens S7:</strong> 102</li>
+                    <li><strong>EtherNet/IP:</strong> 44818, 2222</li>
+                    <li><strong>DNP3:</strong> 20000</li>
+                    <li><strong>BACnet:</strong> 47808</li>
+                    <li><strong>HTTP:</strong> 80</li>
+                    <li><strong>HTTPS:</strong> 443</li>
+                    <li><strong>SQL Server:</strong> 1433</li>
+                </ul>`
+            },
+            oilgas: {
+                title: 'Oil & Gas Projects',
+                body: `<h4>Oil & Gas Industry Requirements</h4>
+                <h4>Key Standards</h4>
+                <ul>
+                    <li><strong>API 1130:</strong> Computational Pipeline Monitoring</li>
+                    <li><strong>API 1164:</strong> Pipeline SCADA Security</li>
+                    <li><strong>ISA-95:</strong> Enterprise-Control System Integration</li>
+                    <li><strong>IEC 61511:</strong> Safety Instrumented Systems (SIS)</li>
+                </ul>
+                <h4>Common Applications</h4>
+                <ul>
+                    <li>Pipeline monitoring and leak detection</li>
+                    <li>Tank farm management</li>
+                    <li>Gas compression stations</li>
+                    <li>Custody transfer metering</li>
+                    <li>Refinery process control</li>
+                </ul>
+                <h4>Special Considerations</h4>
+                <ul>
+                    <li>Hazardous area classifications (Class I, Div 1/2)</li>
+                    <li>Intrinsically safe equipment requirements</li>
+                    <li>Emergency shutdown (ESD) systems</li>
+                    <li>Regulatory compliance reporting</li>
+                    <li>Cybersecurity (NERC CIP for pipelines)</li>
+                </ul>`
+            },
+            water: {
+                title: 'Water/Wastewater Systems',
+                body: `<h4>Water & Wastewater SCADA</h4>
+                <h4>Typical Applications</h4>
+                <ul>
+                    <li>Water treatment plants (WTP)</li>
+                    <li>Wastewater treatment plants (WWTP)</li>
+                    <li>Pumping stations and lift stations</li>
+                    <li>Water distribution networks</li>
+                    <li>Reservoir level monitoring</li>
+                </ul>
+                <h4>Key Measurements</h4>
+                <ul>
+                    <li><strong>Flow:</strong> MGD (Million Gallons per Day), m³/hr</li>
+                    <li><strong>Pressure:</strong> PSI, bar, meters of head</li>
+                    <li><strong>Level:</strong> Tank and reservoir levels</li>
+                    <li><strong>Quality:</strong> pH, turbidity, chlorine, DO (Dissolved Oxygen)</li>
+                </ul>
+                <h4>Communication Protocols</h4>
+                <ul>
+                    <li>DNP3 (most common in utilities)</li>
+                    <li>Modbus RTU/TCP</li>
+                    <li>OPC UA</li>
+                    <li>Radio/Cellular for remote sites</li>
+                </ul>
+                <h4>Compliance</h4>
+                <ul>
+                    <li>EPA regulations for water quality</li>
+                    <li>AWWA (American Water Works Association) standards</li>
+                    <li>Local environmental regulations</li>
+                </ul>`
+            },
+            power: {
+                title: 'Power Generation',
+                body: `<h4>Power Plant & Substation SCADA</h4>
+                <h4>Application Types</h4>
+                <ul>
+                    <li>Generation: Thermal, hydro, solar, wind</li>
+                    <li>Transmission substations (HV/EHV)</li>
+                    <li>Distribution substations (MV/LV)</li>
+                    <li>Energy Management Systems (EMS)</li>
+                </ul>
+                <h4>Key Parameters</h4>
+                <ul>
+                    <li><strong>Electrical:</strong> Voltage, current, frequency, power factor</li>
+                    <li><strong>Energy:</strong> kW, MW, kWh, MWh</li>
+                    <li><strong>Protection:</strong> Relay status, fault indicators</li>
+                    <li><strong>Equipment:</strong> Breaker status, transformer temps</li>
+                </ul>
+                <h4>Protocols</h4>
+                <ul>
+                    <li><strong>DNP3:</strong> Primary protocol for substations</li>
+                    <li><strong>IEC 61850:</strong> Modern substation automation</li>
+                    <li><strong>Modbus:</strong> RTUs and meters</li>
+                    <li><strong>IEC 60870-5-104:</strong> European standard</li>
+                </ul>
+                <h4>Standards & Compliance</h4>
+                <ul>
+                    <li>NERC CIP (Cybersecurity)</li>
+                    <li>IEEE standards for power systems</li>
+                    <li>Grid code compliance</li>
+                    <li>SCADA data reporting requirements</li>
+                </ul>`
+            },
+            manufacturing: {
+                title: 'Manufacturing Systems',
+                body: `<h4>Manufacturing SCADA & MES</h4>
+                <h4>Industry 4.0 Integration</h4>
+                <ul>
+                    <li><strong>Level 0:</strong> Field devices (sensors, actuators)</li>
+                    <li><strong>Level 1:</strong> PLCs and controllers</li>
+                    <li><strong>Level 2:</strong> SCADA/HMI (System Platform)</li>
+                    <li><strong>Level 3:</strong> MES (Manufacturing Execution System)</li>
+                    <li><strong>Level 4:</strong> ERP (Enterprise Resource Planning)</li>
+                </ul>
+                <h4>Batch Processing</h4>
+                <ul>
+                    <li>ISA-88 (S88) compliance for batch control</li>
+                    <li>Recipe management</li>
+                    <li>Material tracking and genealogy</li>
+                    <li>Electronic batch records</li>
+                </ul>
+                <h4>Key Features</h4>
+                <ul>
+                    <li>OEE (Overall Equipment Effectiveness) tracking</li>
+                    <li>Production scheduling integration</li>
+                    <li>Quality management systems</li>
+                    <li>Downtime tracking and analysis</li>
+                    <li>Material consumption tracking</li>
+                </ul>
+                <h4>Common Industries</h4>
+                <ul>
+                    <li>Food & Beverage (21 CFR Part 11 for FDA)</li>
+                    <li>Pharmaceuticals (GMP compliance)</li>
+                    <li>Automotive</li>
+                    <li>Consumer goods</li>
+                </ul>`
+            },
+            qp: {
+                title: 'Qatar Petroleum Standards',
+                body: `<h4>Qatar Petroleum (QatarEnergy) Requirements</h4>
+                <h4>QP Standards (QPS)</h4>
+                <ul>
+                    <li><strong>QPS-17-15:</strong> Instrument and Control Systems</li>
+                    <li><strong>QPS-17-01:</strong> General Requirements for I&C</li>
+                    <li><strong>QPS-17-04:</strong> Control Room Design</li>
+                    <li><strong>QPS-17-11:</strong> Safety Instrumented Systems</li>
+                </ul>
+                <h4>Documentation Requirements</h4>
+                <ul>
+                    <li>Detailed Functional Design Specifications</li>
+                    <li>As-built drawings (AutoCAD format)</li>
+                    <li>Complete I/O database documentation</li>
+                    <li>Alarm rationalization studies</li>
+                    <li>Cause & Effect matrices</li>
+                    <li>Operations & Maintenance manuals</li>
+                </ul>
+                <h4>Testing & Commissioning</h4>
+                <ul>
+                    <li>Factory Acceptance Test (FAT) witnessed by QP</li>
+                    <li>Site Acceptance Test (SAT) with QP approval</li>
+                    <li>Performance guarantee tests</li>
+                    <li>Minimum 30-day reliability run</li>
+                </ul>
+                <h4>Cybersecurity</h4>
+                <ul>
+                    <li>Network segregation (DMZ, firewalls)</li>
+                    <li>Multi-factor authentication</li>
+                    <li>Regular security audits</li>
+                    <li>Compliance with QP IT security policies</li>
+                </ul>`
+            },
+            kahramaa: {
+                title: 'Kahramaa Projects',
+                body: `<h4>Kahramaa (Qatar General Electricity & Water Corporation)</h4>
+                <h4>Project Types</h4>
+                <ul>
+                    <li>Electrical substations (33kV, 132kV, 400kV)</li>
+                    <li>Water reservoirs and pumping stations</li>
+                    <li>Sewage treatment plants (STP)</li>
+                    <li>District cooling plants</li>
+                </ul>
+                <h4>Technical Standards</h4>
+                <ul>
+                    <li>Kahramaa Technical Standards (KTS)</li>
+                    <li>DNP3 protocol mandatory for substations</li>
+                    <li>IEC 61850 for new substations</li>
+                    <li>Redundant SCADA servers required</li>
+                    <li>Hot-standby configuration</li>
+                </ul>
+                <h4>Communication Requirements</h4>
+                <ul>
+                    <li>Primary: Fiber optic communication</li>
+                    <li>Backup: Cellular/radio links</li>
+                    <li>Integration with Kahramaa Central SCADA</li>
+                    <li>Real-time data transmission</li>
+                </ul>
+                <h4>Documentation & Approval</h4>
+                <ul>
+                    <li>Design submissions to Kahramaa for approval</li>
+                    <li>As-built documentation required</li>
+                    <li>Training for Kahramaa operators</li>
+                    <li>12-month warranty and support</li>
+                </ul>
+                <h4>Local Requirements</h4>
+                <ul>
+                    <li>Arabic language support in HMI (optional but preferred)</li>
+                    <li>Compliance with Qatar Civil Defence regulations</li>
+                    <li>Local support and spare parts availability</li>
+                </ul>`
+            },
+            redundancy: {
+                title: 'Redundancy Configuration',
+                body: `<h4>High Availability Systems</h4>
+                <h4>Redundancy Types</h4>
+                <ul>
+                    <li><strong>Cold Standby:</strong> Manual switchover required</li>
+                    <li><strong>Warm Standby:</strong> Backup ready, minimal delay</li>
+                    <li><strong>Hot Standby:</strong> Automatic failover, zero downtime</li>
+                    <li><strong>Active-Active:</strong> Both systems processing simultaneously</li>
+                </ul>
+                <h4>System Platform Redundancy</h4>
+                <ul>
+                    <li><strong>Galaxy Redundancy:</strong> Primary and secondary Galaxy repositories</li>
+                    <li><strong>Engine Redundancy:</strong> Application Server and View Engine pairs</li>
+                    <li><strong>I/O Redundancy:</strong> Dual communication paths to field devices</li>
+                    <li><strong>Network Redundancy:</strong> Multiple network interfaces</li>
+                </ul>
+                <h4>Configuration Steps</h4>
+                <ul>
+                    <li>Install identical hardware for primary and backup</li>
+                    <li>Configure both servers with same Galaxy</li>
+                    <li>Set up replication between servers</li>
+                    <li>Configure automatic failover triggers</li>
+                    <li>Test failover scenarios regularly</li>
+                </ul>
+                <h4>Monitoring & Maintenance</h4>
+                <ul>
+                    <li>Heartbeat monitoring between servers</li>
+                    <li>Automatic health checks</li>
+                    <li>Alarm on failover events</li>
+                    <li>Regular failover testing schedule</li>
+                </ul>`
+            },
+            historian: {
+                title: 'Historian Replication',
+                body: `<h4>Multi-Site Data Synchronization</h4>
+                <h4>Historian Architecture</h4>
+                <ul>
+                    <li><strong>Local Historians:</strong> At each site/plant</li>
+                    <li><strong>Central Historian:</strong> Corporate data warehouse</li>
+                    <li><strong>Replication:</strong> Site to corporate data flow</li>
+                </ul>
+                <h4>Wonderware Historian Replication</h4>
+                <ul>
+                    <li>Configure replication partners</li>
+                    <li>Set replication schedule (continuous or periodic)</li>
+                    <li>Define data filtering rules</li>
+                    <li>Bandwidth management for WAN links</li>
+                    <li>Compression for efficient transfer</li>
+                </ul>
+                <h4>Data Prioritization</h4>
+                <ul>
+                    <li><strong>Critical:</strong> Alarms, events, production data</li>
+                    <li><strong>Normal:</strong> Process values, trends</li>
+                    <li><strong>Low:</strong> Diagnostic data</li>
+                </ul>
+                <h4>Conflict Resolution</h4>
+                <ul>
+                    <li>Timestamp-based resolution</li>
+                    <li>Source priority settings</li>
+                    <li>Handling network outages</li>
+                    <li>Backfill missing data</li>
+                </ul>
+                <h4>Performance Considerations</h4>
+                <ul>
+                    <li>Network bandwidth requirements</li>
+                    <li>Storage capacity planning</li>
+                    <li>Query performance optimization</li>
+                    <li>Archive and purge strategies</li>
+                </ul>`
+            },
+            mes: {
+                title: 'MES Integration',
+                body: `<h4>Manufacturing Execution System Integration</h4>
+                <h4>MES Functions (ISA-95)</h4>
+                <ul>
+                    <li>Production scheduling and dispatch</li>
+                    <li>Resource management (equipment, materials, personnel)</li>
+                    <li>Quality assurance and testing</li>
+                    <li>Material tracking and genealogy</li>
+                    <li>Performance analysis (OEE)</li>
+                    <li>Maintenance management</li>
+                </ul>
+                <h4>SCADA to MES Integration</h4>
+                <ul>
+                    <li><strong>Data Flow Up:</strong> Production counts, downtime, quality data</li>
+                    <li><strong>Data Flow Down:</strong> Work orders, recipes, setpoints</li>
+                    <li><strong>Bidirectional:</strong> Material tracking, equipment status</li>
+                </ul>
+                <h4>Integration Methods</h4>
+                <ul>
+                    <li><strong>OPC UA:</strong> Modern standard for data exchange</li>
+                    <li><strong>Web Services:</strong> REST/SOAP APIs</li>
+                    <li><strong>Database:</strong> SQL tables for data sharing</li>
+                    <li><strong>File Transfer:</strong> CSV/XML files</li>
+                    <li><strong>Message Queues:</strong> MQTT, AMQP</li>
+                </ul>
+                <h4>Common MES Systems</h4>
+                <ul>
+                    <li>Siemens SIMATIC IT</li>
+                    <li>Rockwell FactoryTalk ProductionCentre</li>
+                    <li>SAP MES</li>
+                    <li>Wonderware MES (now AVEVA MES)</li>
+                </ul>`
+            },
+            dotnet: {
+                title: 'Custom .NET Development',
+                body: `<h4>Extending System Platform with .NET</h4>
+                <h4>Development Options</h4>
+                <ul>
+                    <li><strong>ArchestrA Extensions:</strong> Custom templates and objects</li>
+                    <li><strong>WPF Applications:</strong> Custom HMI clients</li>
+                    <li><strong>Web Services:</strong> REST APIs for data access</li>
+                    <li><strong>Background Services:</strong> Windows services for custom logic</li>
+                </ul>
+                <h4>System Platform SDKs</h4>
+                <ul>
+                    <li><strong>ArchestrA SDK:</strong> Galaxy object manipulation</li>
+                    <li><strong>Historian SDK:</strong> Data read/write to historian</li>
+                    <li><strong>Alarm SDK:</strong> Custom alarm handling</li>
+                    <li><strong>InTouch OMI SDK:</strong> Custom graphics and controls</li>
+                </ul>
+                <h4>Development Environment</h4>
+                <ul>
+                    <li>Visual Studio (2019 or later)</li>
+                    <li>.NET Framework 4.7.2 or .NET Core</li>
+                    <li>C# or VB.NET</li>
+                    <li>Reference System Platform DLLs</li>
+                </ul>
+                <h4>Common Use Cases</h4>
+                <ul>
+                    <li>Custom reporting engines</li>
+                    <li>Advanced data analytics</li>
+                    <li>Integration with third-party systems</li>
+                    <li>Mobile applications</li>
+                    <li>Custom alarm notification systems</li>
+                </ul>
+                <h4>Best Practices</h4>
+                <ul>
+                    <li>Follow Microsoft coding standards</li>
+                    <li>Implement error handling and logging</li>
+                    <li>Test thoroughly before deployment</li>
+                    <li>Document custom code</li>
+                    <li>Version control (Git)</li>
+                </ul>`
+            },
+            sql: {
+                title: 'SQL Database Integration',
+                body: `<h4>Custom Reporting & Data Storage</h4>
+                <h4>Database Connectivity</h4>
+                <ul>
+                    <li><strong>SQL Server:</strong> Native integration</li>
+                    <li><strong>Oracle:</strong> ODBC/OLE DB connection</li>
+                    <li><strong>MySQL/PostgreSQL:</strong> Via ADO.NET</li>
+                </ul>
+                <h4>QuickScript Database Access</h4>
+                <pre>Dim conn As New ADODB.Connection
+Dim rs As New ADODB.Recordset
+conn.Open "Provider=SQLOLEDB;Data Source=SERVER;..."
+rs.Open "SELECT * FROM Production", conn
+' Process results
+rs.Close
+conn.Close</pre>
+                <h4>Common Queries</h4>
+                <ul>
+                    <li><strong>Historian Data:</strong> SELECT TagName, DateTime, Value FROM History</li>
+                    <li><strong>Alarm Summary:</strong> SELECT * FROM AlarmHistory WHERE Priority > 500</li>
+                    <li><strong>Production Reports:</strong> Aggregated data for shifts/days</li>
+                </ul>
+                <h4>Reporting Tools</h4>
+                <ul>
+                    <li>SQL Server Reporting Services (SSRS)</li>
+                    <li>Crystal Reports</li>
+                    <li>Power BI integration</li>
+                    <li>Custom .NET report generators</li>
+                </ul>
+                <h4>Best Practices</h4>
+                <ul>
+                    <li>Use parameterized queries (prevent SQL injection)</li>
+                    <li>Implement connection pooling</li>
+                    <li>Index database tables properly</li>
+                    <li>Archive old data regularly</li>
+                    <li>Backup databases regularly</li>
+                </ul>`
+            },
+            mobile: {
+                title: 'Mobile HMI Development',
+                body: `<h4>Creating Mobile-Responsive Interfaces</h4>
+                <h4>Mobile Platforms</h4>
+                <ul>
+                    <li><strong>InTouch OMI:</strong> Built-in responsive design</li>
+                    <li><strong>Web-based HMI:</strong> HTML5/JavaScript clients</li>
+                    <li><strong>Native Apps:</strong> iOS/Android development</li>
+                </ul>
+                <h4>Design Considerations</h4>
+                <ul>
+                    <li><strong>Screen Size:</strong> Design for 7" to 12" tablets</li>
+                    <li><strong>Touch Interface:</strong> Minimum 44x44 pixel buttons</li>
+                    <li><strong>Orientation:</strong> Support both portrait and landscape</li>
+                    <li><strong>Network:</strong> Handle poor connectivity gracefully</li>
+                </ul>
+                <h4>InTouch OMI Responsive Features</h4>
+                <ul>
+                    <li>Auto-scaling graphics</li>
+                    <li>Touch-optimized controls</li>
+                    <li>Simplified navigation for mobile</li>
+                    <li>Offline caching support</li>
+                </ul>
+                <h4>Security</h4>
+                <ul>
+                    <li>VPN access for remote connections</li>
+                    <li>Multi-factor authentication</li>
+                    <li>Session timeout policies</li>
+                    <li>Device management (MDM)</li>
+                </ul>
+                <h4>Common Use Cases</h4>
+                <ul>
+                    <li>Operator rounds and inspections</li>
+                    <li>Management dashboards</li>
+                    <li>Alarm notifications</li>
+                    <li>Remote troubleshooting</li>
+                    <li>Mobile approvals and sign-offs</li>
+                </ul>`
+            },
+            logviewer: {
+                title: 'Using LogViewer',
+                body: `<h4>Finding Errors in System Logs</h4>
+                <h4>Opening LogViewer</h4>
+                <ul>
+                    <li>Start Menu > AVEVA > System Platform > LogViewer</li>
+                    <li>Or run: %ProgramFiles%\\ArchestrA\\LogViewer.exe</li>
+                </ul>
+                <h4>Log Types</h4>
+                <ul>
+                    <li><strong>Application:</strong> Runtime errors and warnings</li>
+                    <li><strong>Configuration:</strong> Deployment and configuration changes</li>
+                    <li><strong>Security:</strong> Login attempts and access</li>
+                    <li><strong>System:</strong> Windows and infrastructure logs</li>
+                </ul>
+                <h4>Filtering Logs</h4>
+                <ul>
+                    <li><strong>By Severity:</strong> Error, Warning, Information</li>
+                    <li><strong>By Time Range:</strong> Last hour, today, custom range</li>
+                    <li><strong>By Source:</strong> Specific engines or objects</li>
+                    <li><strong>By Text:</strong> Search for keywords</li>
+                </ul>
+                <h4>Common Errors to Look For</h4>
+                <ul>
+                    <li><strong>Communication Failures:</strong> "Device not responding"</li>
+                    <li><strong>Script Errors:</strong> "Runtime error in script"</li>
+                    <li><strong>License Issues:</strong> "License not found"</li>
+                    <li><strong>Database Errors:</strong> "Cannot connect to SQL"</li>
+                </ul>
+                <h4>Export Logs</h4>
+                <ul>
+                    <li>File > Export to CSV</li>
+                    <li>Useful for sharing with support or analysis</li>
+                </ul>`
+            },
+            galaxydump: {
+                title: 'Galaxy Dump/Load',
+                body: `<h4>Backup and Migration Procedures</h4>
+                <h4>Galaxy Dump (Backup)</h4>
+                <ul>
+                    <li><strong>Step 1:</strong> Open ArchestrA System Management Console</li>
+                    <li><strong>Step 2:</strong> Right-click Galaxy > Dump Galaxy</li>
+                    <li><strong>Step 3:</strong> Select backup location and filename</li>
+                    <li><strong>Step 4:</strong> Choose options (Full or Incremental)</li>
+                    <li><strong>Step 5:</strong> Wait for completion (can take 10-30 minutes)</li>
+                </ul>
+                <h4>Backup Options</h4>
+                <ul>
+                    <li><strong>Full Dump:</strong> Complete Galaxy backup (.aaPKG file)</li>
+                    <li><strong>Incremental:</strong> Only changes since last backup</li>
+                    <li><strong>Include Binaries:</strong> Graphics and scripts</li>
+                    <li><strong>Exclude History:</strong> Skip historian data (faster)</li>
+                </ul>
+                <h4>Galaxy Load (Restore)</h4>
+                <ul>
+                    <li><strong>Step 1:</strong> Create new empty Galaxy</li>
+                    <li><strong>Step 2:</strong> Right-click Galaxy > Load Galaxy</li>
+                    <li><strong>Step 3:</strong> Browse to .aaPKG file</li>
+                    <li><strong>Step 4:</strong> Select load options</li>
+                    <li><strong>Step 5:</strong> Deploy objects after load</li>
+                </ul>
+                <h4>Backup Schedule</h4>
+                <ul>
+                    <li><strong>Daily:</strong> End of day backup</li>
+                    <li><strong>Weekly:</strong> Full backup with verification</li>
+                    <li><strong>Before Changes:</strong> Always backup before major changes</li>
+                    <li><strong>Before Deployment:</strong> Backup before FAT/SAT</li>
+                </ul>
+                <h4>Storage Best Practices</h4>
+                <ul>
+                    <li>Save to network drive (not local)</li>
+                    <li>Include timestamp in filename: Galaxy_YYYYMMDD_HHMM.aaPKG</li>
+                    <li>Keep multiple versions (at least 7 days)</li>
+                    <li>Test restore procedure regularly</li>
+                </ul>`
+            },
+            bulk: {
+                title: 'Bulk Import/Export',
+                body: `<h4>Managing Large Tag Databases</h4>
+                <h4>CSV Import/Export</h4>
+                <ul>
+                    <li><strong>Export:</strong> Right-click object > Export to CSV</li>
+                    <li><strong>Edit:</strong> Modify tags in Excel</li>
+                    <li><strong>Import:</strong> Right-click object > Import from CSV</li>
+                    <li><strong>Validation:</strong> Check for errors before applying</li>
+                </ul>
+                <h4>CSV File Format</h4>
+                <ul>
+                    <li><strong>Columns:</strong> TagName, DataType, IOAddress, Description, ScanGroup</li>
+                    <li><strong>Example:</strong> Tank01_Level, Float, 400001, "Tank 1 Level", FastScan</li>
+                </ul>
+                <h4>Bulk Operations Tools</h4>
+                <ul>
+                    <li><strong>ArchestrA Bulk Operations:</strong> Built-in tool</li>
+                    <li><strong>PowerShell Scripts:</strong> Automate with ArchestrA SDK</li>
+                    <li><strong>Excel Macros:</strong> Generate CSV files</li>
+                </ul>
+                <h4>Common Bulk Tasks</h4>
+                <ul>
+                    <li>Import 1000+ I/O tags from P&ID</li>
+                    <li>Update descriptions from master list</li>
+                    <li>Change scan groups for performance</li>
+                    <li>Update alarm limits across multiple tags</li>
+                    <li>Clone templates with variations</li>
+                </ul>
+                <h4>Best Practices</h4>
+                <ul>
+                    <li>Always backup before bulk import</li>
+                    <li>Validate CSV format first</li>
+                    <li>Test with small batch first</li>
+                    <li>Use Excel formulas to generate addresses</li>
+                    <li>Document bulk changes</li>
+                </ul>`
+            },
+            perfmon: {
+                title: 'Performance Monitor',
+                body: `<h4>Tracking System Health</h4>
+                <h4>Windows Performance Monitor</h4>
+                <ul>
+                    <li><strong>Open:</strong> Start > Run > perfmon</li>
+                    <li><strong>Add Counters:</strong> Right-click graph > Add Counters</li>
+                    <li><strong>View Data:</strong> Real-time or log file</li>
+                </ul>
+                <h4>Key Counters to Monitor</h4>
+                <ul>
+                    <li><strong>CPU:</strong> Processor > % Processor Time (< 70% normal)</li>
+                    <li><strong>Memory:</strong> Memory > Available MBytes (> 500MB free)</li>
+                    <li><strong>Disk:</strong> PhysicalDisk > % Disk Time (< 80%)</li>
+                    <li><strong>Network:</strong> Network Interface > Bytes Total/sec</li>
+                </ul>
+                <h4>System Platform Specific</h4>
+                <ul>
+                    <li><strong>ArchestrA Object Counters:</strong> Deployed objects</li>
+                    <li><strong>Historian:</strong> Tags logged per second</li>
+                    <li><strong>Alarm:</strong> Active alarms, alarm rate</li>
+                    <li><strong>I/O:</strong> Tags scanned, communication errors</li>
+                </ul>
+                <h4>Creating Data Collector Sets</h4>
+                <ul>
+                    <li>Performance Monitor > Data Collector Sets</li>
+                    <li>Create User Defined set</li>
+                    <li>Add relevant counters</li>
+                    <li>Set schedule (e.g., log every 15 seconds)</li>
+                    <li>Review logs for trends</li>
+                </ul>
+                <h4>Performance Baselines</h4>
+                <ul>
+                    <li>Establish normal operation baseline</li>
+                    <li>Compare current vs baseline</li>
+                    <li>Identify degradation trends</li>
+                    <li>Plan capacity upgrades</li>
+                </ul>`
+            },
+            network: {
+                title: 'Network Diagnostics',
+                body: `<h4>Industrial Network Troubleshooting</h4>
+                <h4>Basic Commands</h4>
+                <ul>
+                    <li><strong>ping [IP]:</strong> Test connectivity (ping 192.168.1.100)</li>
+                    <li><strong>tracert [IP]:</strong> Trace route to device</li>
+                    <li><strong>ipconfig /all:</strong> View network configuration</li>
+                    <li><strong>arp -a:</strong> View ARP table (MAC addresses)</li>
+                    <li><strong>netstat -an:</strong> Active connections and ports</li>
+                </ul>
+                <h4>Wireshark Packet Analysis</h4>
+                <ul>
+                    <li><strong>Capture:</strong> Select network interface, start capture</li>
+                    <li><strong>Filters:</strong> tcp.port == 502 (Modbus), opc-ua, dnp3</li>
+                    <li><strong>Analysis:</strong> Look for retransmissions, errors</li>
+                    <li><strong>Export:</strong> Save captured data for analysis</li>
+                </ul>
+                <h4>Common Network Issues</h4>
+                <ul>
+                    <li><strong>High Latency:</strong> >100ms ping time (check switches, cables)</li>
+                    <li><strong>Packet Loss:</strong> >1% loss (check physical connections)</li>
+                    <li><strong>Broadcast Storms:</strong> Excessive broadcast traffic</li>
+                    <li><strong>Duplicate IPs:</strong> Two devices same IP</li>
+                </ul>
+                <h4>Industrial Network Tools</h4>
+                <ul>
+                    <li><strong>SCADA Tools:</strong> Built-in diagnostics in System Platform</li>
+                    <li><strong>Protocol Testers:</strong> Modbus Poll, OPC Test Client</li>
+                    <li><strong>Network Scanners:</strong> Angry IP Scanner, Advanced IP Scanner</li>
+                    <li><strong>Cable Testers:</strong> Verify physical layer</li>
+                </ul>
+                <h4>Best Practices</h4>
+                <ul>
+                    <li>Document network topology with IPs</li>
+                    <li>Label all cables and ports</li>
+                    <li>Use managed switches for troubleshooting</li>
+                    <li>Implement VLANs to segment traffic</li>
+                    <li>Monitor network health continuously</li>
+                </ul>`
+            },
+            communication: {
+                title: 'Client Communication Guide',
+                body: `<h4>Professional Interaction Protocols</h4>
+                <h4>Email Communication</h4>
+                <ul>
+                    <li><strong>Subject Lines:</strong> Clear and specific (e.g., "Project ABC - FAT Schedule Confirmation")</li>
+                    <li><strong>Response Time:</strong> Reply within 24 hours, acknowledge receipt immediately</li>
+                    <li><strong>Tone:</strong> Professional, courteous, clear</li>
+                    <li><strong>CC Protocol:</strong> Include project manager and relevant stakeholders</li>
+                    <li><strong>Attachments:</strong> Use clear naming conventions, compress large files</li>
+                </ul>
+                <h4>Meeting Etiquette</h4>
+                <ul>
+                    <li>Always arrive 5-10 minutes early</li>
+                    <li>Come prepared with agenda and materials</li>
+                    <li>Take detailed notes and action items</li>
+                    <li>Follow up with meeting minutes within 24 hours</li>
+                    <li>Dress professionally (business casual minimum)</li>
+                </ul>
+                <h4>Technical Discussions</h4>
+                <ul>
+                    <li><strong>Avoid Jargon:</strong> Explain technical terms when talking to non-engineers</li>
+                    <li><strong>Be Honest:</strong> If you don't know, say so and commit to finding out</li>
+                    <li><strong>Document Everything:</strong> Verbal agreements should be followed up in writing</li>
+                    <li><strong>Show Solutions:</strong> Don't just present problems, offer solutions</li>
+                </ul>
+                <h4>Conflict Resolution</h4>
+                <ul>
+                    <li>Stay calm and professional</li>
+                    <li>Listen actively to client concerns</li>
+                    <li>Focus on facts, not emotions</li>
+                    <li>Escalate to project manager when needed</li>
+                    <li>Document all discussions and resolutions</li>
+                </ul>`
+            },
+            qatar: {
+                title: 'Working in Qatar/MEA',
+                body: `<h4>Cultural Awareness and Business Etiquette</h4>
+                <h4>Business Culture in Qatar</h4>
+                <ul>
+                    <li><strong>Work Week:</strong> Sunday to Thursday (Friday-Saturday weekend)</li>
+                    <li><strong>Prayer Times:</strong> Respect 5 daily prayer times, business may pause</li>
+                    <li><strong>Ramadan:</strong> No eating/drinking in public during fasting hours</li>
+                    <li><strong>Dress Code:</strong> Conservative and professional attire</li>
+                </ul>
+                <h4>Social Etiquette</h4>
+                <ul>
+                    <li><strong>Greetings:</strong> Handshake common for men, wait for women to extend hand</li>
+                    <li><strong>Right Hand:</strong> Use right hand for eating and handshakes</li>
+                    <li><strong>Personal Space:</strong> Respect personal boundaries</li>
+                    <li><strong>Hospitality:</strong> Arabic coffee and dates are traditional welcomes</li>
+                </ul>
+                <h4>Business Practices</h4>
+                <ul>
+                    <li><strong>Hierarchy:</strong> Respect organizational hierarchy and seniority</li>
+                    <li><strong>Decision Making:</strong> May take longer due to consultation processes</li>
+                    <li><strong>Relationships:</strong> Building trust and relationships is important</li>
+                    <li><strong>Punctuality:</strong> Be on time, though meetings may start late</li>
+                </ul>
+                <h4>Site Work Considerations</h4>
+                <ul>
+                    <li>Extreme heat in summer (40-50°C), schedule outdoor work early morning</li>
+                    <li>Midday break common during hot months</li>
+                    <li>Safety is paramount - follow all site regulations</li>
+                    <li>PPE requirements strictly enforced</li>
+                </ul>
+                <h4>Legal & Compliance</h4>
+                <ul>
+                    <li>Valid work visa and Qatar ID required</li>
+                    <li>Alcohol consumption restricted to licensed venues</li>
+                    <li>Photography of government/military sites prohibited</li>
+                    <li>Respect local laws and customs at all times</li>
+                </ul>`
+            },
+            arabic: {
+                title: 'Arabic Language Basics',
+                body: `<h4>Common Technical Terms and Phrases</h4>
+                <h4>Greetings & Courtesy</h4>
+                <ul>
+                    <li><strong>As-salamu alaykum</strong> (السلام عليكم) - Peace be upon you (greeting)</li>
+                    <li><strong>Wa alaykumu s-salam</strong> (وعليكم السلام) - And upon you peace (response)</li>
+                    <li><strong>Sabah al-khayr</strong> (صباح الخير) - Good morning</li>
+                    <li><strong>Shukran</strong> (شكراً) - Thank you</li>
+                    <li><strong>Afwan</strong> (عفواً) - You're welcome</li>
+                    <li><strong>Min fadlak</strong> (من فضلك) - Please</li>
+                </ul>
+                <h4>Common Technical Terms</h4>
+                <ul>
+                    <li><strong>Kahraba</strong> (كهرباء) - Electricity</li>
+                    <li><strong>Maa</strong> (ماء) - Water</li>
+                    <li><strong>Ghaaz</strong> (غاز) - Gas</li>
+                    <li><strong>Daght</strong> (ضغط) - Pressure</li>
+                    <li><strong>Harara</strong> (حرارة) - Temperature</li>
+                    <li><strong>Mostawa</strong> (مستوى) - Level</li>
+                    <li><strong>Tadfeq</strong> (تدفق) - Flow</li>
+                    <li><strong>Muta'harekk</strong> (محرك) - Motor</li>
+                    <li><strong>Sinnara</strong> (سنارة) - Valve</li>
+                </ul>
+                <h4>Site & Safety Terms</h4>
+                <ul>
+                    <li><strong>Mawqe'</strong> (موقع) - Site</li>
+                    <li><strong>Salama</strong> (سلامة) - Safety</li>
+                    <li><strong>Khatar</strong> (خطر) - Danger</li>
+                    <li><strong>Mamnoo'</strong> (ممنوع) - Prohibited</li>
+                    <li><strong>Tawaqaf</strong> (توقف) - Stop</li>
+                </ul>
+                <h4>Useful Phrases</h4>
+                <ul>
+                    <li><strong>Hal tatakallam al-ingleeziya?</strong> - Do you speak English?</li>
+                    <li><strong>Ayna al-hammam?</strong> - Where is the bathroom?</li>
+                    <li><strong>Ana muhandis</strong> - I am an engineer</li>
+                </ul>`
+            },
+            timemanagement: {
+                title: 'Time Management',
+                body: `<h4>Handling Multiple Projects Simultaneously</h4>
+                <h4>Project Prioritization</h4>
+                <ul>
+                    <li><strong>Urgent & Important:</strong> FAT/SAT dates, client deadlines</li>
+                    <li><strong>Important but Not Urgent:</strong> Documentation, training</li>
+                    <li><strong>Urgent but Not Important:</strong> Some emails, minor requests</li>
+                    <li><strong>Neither:</strong> Delegate or defer</li>
+                </ul>
+                <h4>Daily Planning</h4>
+                <ul>
+                    <li>Start each day with 15-minute planning session</li>
+                    <li>Identify top 3 priorities for the day</li>
+                    <li>Block time for focused work (no interruptions)</li>
+                    <li>Schedule buffer time between tasks (15-30 min)</li>
+                    <li>End day with 10-minute review and next-day prep</li>
+                </ul>
+                <h4>Time Blocking Techniques</h4>
+                <ul>
+                    <li><strong>Morning (8-12):</strong> Complex development work</li>
+                    <li><strong>Early Afternoon (12-2):</strong> Meetings and coordination</li>
+                    <li><strong>Late Afternoon (2-5):</strong> Testing, documentation, emails</li>
+                    <li><strong>Protected Hours:</strong> Block 2-3 hours daily for uninterrupted work</li>
+                </ul>
+                <h4>Managing Multiple Projects</h4>
+                <ul>
+                    <li>Use project management tools (MS Project, Trello, Jira)</li>
+                    <li>Maintain separate folders for each project</li>
+                    <li>Weekly review of all project statuses</li>
+                    <li>Communicate delays early to stakeholders</li>
+                    <li>Don't commit to unrealistic deadlines</li>
+                </ul>
+                <h4>Avoiding Burnout</h4>
+                <ul>
+                    <li>Take regular breaks (Pomodoro: 25 min work, 5 min break)</li>
+                    <li>Maintain work-life balance</li>
+                    <li>Delegate when possible</li>
+                    <li>Learn to say "no" to unreasonable requests</li>
+                    <li>Keep weekends for rest and family</li>
+                </ul>`
+            },
+            safety: {
+                title: 'Safety Procedures',
+                body: `<h4>Site Safety Requirements in the Region</h4>
+                <h4>Personal Protective Equipment (PPE)</h4>
+                <ul>
+                    <li><strong>Mandatory:</strong> Hard hat, safety shoes, safety glasses</li>
+                    <li><strong>When Required:</strong> Gloves, ear protection, respirator, harness</li>
+                    <li><strong>High-Vis:</strong> Reflective vest/coveralls mandatory on most sites</li>
+                    <li><strong>Inspection:</strong> Check PPE daily before use</li>
+                </ul>
+                <h4>Site Access & Induction</h4>
+                <ul>
+                    <li>Complete site safety induction before first entry</li>
+                    <li>Carry valid site access card/permit at all times</li>
+                    <li>Sign in/out at site security</li>
+                    <li>Follow designated walkways and paths</li>
+                    <li>Never enter restricted/hazardous areas without authorization</li>
+                </ul>
+                <h4>Work Permits</h4>
+                <ul>
+                    <li><strong>Hot Work:</strong> Welding, cutting, grinding</li>
+                    <li><strong>Confined Space:</strong> Tanks, vessels, underground</li>
+                    <li><strong>Working at Height:</strong> Ladders, scaffolds, elevated platforms</li>
+                    <li><strong>Electrical Work:</strong> Live electrical systems</li>
+                    <li><strong>Process:</strong> Obtain permit before starting, follow all conditions</li>
+                </ul>
+                <h4>Electrical Safety</h4>
+                <ul>
+                    <li>Always assume electrical equipment is live</li>
+                    <li>Lock-out/Tag-out (LOTO) procedures mandatory</li>
+                    <li>Use insulated tools for electrical work</li>
+                    <li>Verify de-energization with multimeter</li>
+                    <li>Never work alone on electrical systems</li>
+                </ul>
+                <h4>Heat Stress (Summer Months)</h4>
+                <ul>
+                    <li>Drink water frequently (1 liter per hour in heat)</li>
+                    <li>Take breaks in shaded/air-conditioned areas</li>
+                    <li>Watch for symptoms: dizziness, nausea, confusion</li>
+                    <li>Schedule outdoor work for early morning (6-10 AM)</li>
+                    <li>Wear light-colored, breathable clothing under coveralls</li>
+                </ul>
+                <h4>Emergency Procedures</h4>
+                <ul>
+                    <li>Know location of emergency exits and muster points</li>
+                    <li>Location of fire extinguishers and first aid kits</li>
+                    <li>Emergency phone numbers posted and saved in mobile</li>
+                    <li>Report all incidents immediately to site supervisor</li>
+                    <li>Never ignore alarms or safety warnings</li>
+                </ul>`
+            },
+            travel: {
+                title: 'Travel & Logistics',
+                body: `<h4>Managing Site Visits and Commissioning Trips</h4>
+                <h4>Pre-Travel Planning</h4>
+                <ul>
+                    <li><strong>Documentation:</strong> Passport (>6 months validity), visa, travel insurance</li>
+                    <li><strong>Approvals:</strong> Get travel authorization from management</li>
+                    <li><strong>Bookings:</strong> Flights, hotel, car rental through company channels</li>
+                    <li><strong>Equipment:</strong> Laptop, tools, spare cables, testing equipment</li>
+                    <li><strong>Client Coordination:</strong> Confirm dates and site access 1 week before</li>
+                </ul>
+                <h4>Packing Checklist</h4>
+                <ul>
+                    <li><strong>Technical:</strong> Laptop, chargers, USB drives, network cables</li>
+                    <li><strong>Software:</strong> AVEVA installers, licenses, Galaxy backups</li>
+                    <li><strong>Documentation:</strong> Printed FDS, drawings, test procedures</li>
+                    <li><strong>PPE:</strong> Safety shoes, hard hat, safety glasses, gloves</li>
+                    <li><strong>Personal:</strong> Appropriate clothing, medications, toiletries</li>
+                </ul>
+                <h4>On-Site Best Practices</h4>
+                <ul>
+                    <li>Report to site office upon arrival</li>
+                    <li>Keep client updated on daily progress</li>
+                    <li>Document all changes and issues with photos</li>
+                    <li>Maintain daily work log</li>
+                    <li>Keep regular contact with home office</li>
+                </ul>
+                <h4>Expense Management</h4>
+                <ul>
+                    <li>Keep all receipts (meals, taxi, incidentals)</li>
+                    <li>Take photos of receipts as backup</li>
+                    <li>Submit expense report within 1 week of return</li>
+                    <li>Follow company per-diem policies</li>
+                    <li>Use company credit card for major expenses</li>
+                </ul>
+                <h4>Health & Wellness</h4>
+                <ul>
+                    <li>Get adequate rest despite time zone changes</li>
+                    <li>Stay hydrated, especially in Qatar heat</li>
+                    <li>Know location of nearest hospital/clinic</li>
+                    <li>Keep emergency contacts handy</li>
+                    <li>Take breaks to avoid exhaustion</li>
+                </ul>
+                <h4>Communication</h4>
+                <ul>
+                    <li>Get local SIM card or enable roaming</li>
+                    <li>Share your location and schedule with family</li>
+                    <li>Daily check-in with project manager</li>
+                    <li>Use WhatsApp/Teams for quick updates</li>
+                    <li>Schedule video calls for complex discussions</li>
+                </ul>`
+            },
+            templates: {
+                title: 'Documentation Templates',
+                body: `<h4>Standard Formats for All Deliverables</h4>
+                <h4>Functional Design Specification (FDS) Template</h4>
+                <ul>
+                    <li><strong>Cover Page:</strong> Project name, client, date, revision</li>
+                    <li><strong>Table of Contents:</strong> Auto-generated with page numbers</li>
+                    <li><strong>Revision History:</strong> Track all document changes</li>
+                    <li><strong>Sections:</strong> Introduction, Architecture, I/O List, HMI, Alarms, Reports</li>
+                    <li><strong>Appendices:</strong> Network diagrams, tag databases, test plans</li>
+                </ul>
+                <h4>Test Protocol Template</h4>
+                <ul>
+                    <li><strong>Test ID:</strong> Unique identifier for each test</li>
+                    <li><strong>Objective:</strong> What is being tested</li>
+                    <li><strong>Prerequisites:</strong> Required conditions before test</li>
+                    <li><strong>Procedure:</strong> Step-by-step test steps</li>
+                    <li><strong>Expected Results:</strong> What should happen</li>
+                    <li><strong>Actual Results:</strong> What actually happened</li>
+                    <li><strong>Pass/Fail:</strong> Test outcome</li>
+                    <li><strong>Signatures:</strong> Tested by, witnessed by, approved by</li>
+                </ul>
+                <h4>User Manual Template</h4>
+                <ul>
+                    <li><strong>Introduction:</strong> System overview and purpose</li>
+                    <li><strong>System Architecture:</strong> High-level diagram</li>
+                    <li><strong>Getting Started:</strong> Login, navigation basics</li>
+                    <li><strong>Screen Descriptions:</strong> Each HMI screen explained</li>
+                    <li><strong>Common Operations:</strong> Start/stop equipment, acknowledge alarms</li>
+                    <li><strong>Troubleshooting:</strong> Common issues and solutions</li>
+                    <li><strong>Appendix:</strong> Alarm list, contacts</li>
+                </ul>
+                <h4>As-Built Drawing Standards</h4>
+                <ul>
+                    <li><strong>Format:</strong> AutoCAD DWG format</li>
+                    <li><strong>Title Block:</strong> Project info, revision, date</li>
+                    <li><strong>Layers:</strong> Separate layers for equipment, cables, labels</li>
+                    <li><strong>Symbols:</strong> Use standard ISA symbols</li>
+                    <li><strong>Revisions:</strong> Cloud and triangle for changes</li>
+                </ul>
+                <h4>Meeting Minutes Template</h4>
+                <ul>
+                    <li><strong>Header:</strong> Meeting title, date, time, location</li>
+                    <li><strong>Attendees:</strong> Names and organizations</li>
+                    <li><strong>Agenda Items:</strong> Topics discussed</li>
+                    <li><strong>Decisions:</strong> Agreements reached</li>
+                    <li><strong>Action Items:</strong> Who, what, when</li>
+                    <li><strong>Next Meeting:</strong> Date and agenda</li>
+                </ul>
+                <h4>File Naming Conventions</h4>
+                <ul>
+                    <li><strong>Format:</strong> ProjectCode_DocType_Rev_Date.ext</li>
+                    <li><strong>Example:</strong> ABC123_FDS_R02_20260115.docx</li>
+                    <li><strong>No Spaces:</strong> Use underscores or hyphens</li>
+                    <li><strong>Dates:</strong> YYYYMMDD format</li>
+                    <li><strong>Revisions:</strong> R01, R02, R03 or A, B, C</li>
+                </ul>`
+            },
+            alarmpriority: {
+                title: 'Alarm Priority Guidelines',
+                body: `<h4>ISA-18.2 Compliant Prioritization</h4>
+                <h4>Priority Levels (ISA-18.2 Standard)</h4>
+                <ul>
+                    <li><strong>Critical (Priority 1):</strong> Immediate operator action required to prevent safety hazard or equipment damage</li>
+                    <li><strong>High (Priority 2):</strong> Timely operator action required to prevent production loss or quality issues</li>
+                    <li><strong>Medium (Priority 3):</strong> Operator awareness required, action may be needed</li>
+                    <li><strong>Low (Priority 4):</strong> Information only, no immediate action needed</li>
+                </ul>
+                <h4>Priority Assignment Criteria</h4>
+                <ul>
+                    <li><strong>Critical:</strong> Safety systems (ESD), high-pressure alarms, toxic releases</li>
+                    <li><strong>High:</strong> Process upsets, equipment protection, quality excursions</li>
+                    <li><strong>Medium:</strong> Maintenance required, minor process deviations</li>
+                    <li><strong>Low:</strong> Status changes, advisory messages</li>
+                </ul>
+                <h4>Visual Coding by Priority</h4>
+                <ul>
+                    <li><strong>Critical:</strong> Red, flashing, audible horn</li>
+                    <li><strong>High:</strong> Red/Orange, flashing, audible beep</li>
+                    <li><strong>Medium:</strong> Yellow, steady</li>
+                    <li><strong>Low:</strong> Blue/Cyan, steady</li>
+                </ul>
+                <h4>Alarm Rate Management</h4>
+                <ul>
+                    <li><strong>Normal Operation:</strong> < 1 alarm per 10 minutes per operator</li>
+                    <li><strong>Maximum Sustainable:</strong> < 6 alarms per 10 minutes</li>
+                    <li><strong>Alarm Flood:</strong> > 10 alarms per 10 minutes (unacceptable)</li>
+                    <li><strong>Target:</strong> < 144 alarms per operator per day</li>
+                </ul>
+                <h4>Alarm Response Time</h4>
+                <ul>
+                    <li><strong>Critical:</strong> Immediate response (< 1 minute)</li>
+                    <li><strong>High:</strong> < 10 minutes</li>
+                    <li><strong>Medium:</strong> < 30 minutes</li>
+                    <li><strong>Low:</strong> Next shift or maintenance window</li>
+                </ul>
+                <h4>Alarm Shelving/Suppression</h4>
+                <ul>
+                    <li>Allow temporary shelving of nuisance alarms</li>
+                    <li>Maximum shelving time: 8-24 hours</li>
+                    <li>Auto-unshelve after time period</li>
+                    <li>Log all shelving actions with reason</li>
+                    <li>Require supervisor approval for critical alarms</li>
+                </ul>
+                <h4>Deadband & Delay Settings</h4>
+                <ul>
+                    <li><strong>Deadband:</strong> 2-5% of range to prevent chattering</li>
+                    <li><strong>Alarm Delay:</strong> 5-30 seconds to filter transients</li>
+                    <li><strong>Return-to-Normal Delay:</strong> Prevent rapid on/off cycling</li>
+                </ul>`
+            },
+            sqlqueries: {
+                title: 'SQL Query Templates',
+                body: `<h4>Historian and Database Queries</h4>
+                <h4>Wonderware Historian Queries</h4>
+                <p><strong>Last 24 Hours of Tag Data:</strong></p>
+                <pre>SELECT DateTime, Value, wwQualityRule
+FROM History
+WHERE TagName = 'Tank01_Level'
+  AND DateTime >= DATEADD(hour, -24, GETDATE())
+ORDER BY DateTime</pre>
+                <p><strong>Hourly Average:</strong></p>
+                <pre>SELECT 
+  DATEPART(hour, DateTime) AS Hour,
+  AVG(Value) AS AvgValue,
+  MIN(Value) AS MinValue,
+  MAX(Value) AS MaxValue
+FROM History
+WHERE TagName = 'Reactor_Temperature'
+  AND DateTime >= DATEADD(day, -1, GETDATE())
+GROUP BY DATEPART(hour, DateTime)
+ORDER BY Hour</pre>
+                <h4>Alarm Queries</h4>
+                <p><strong>Active Alarms:</strong></p>
+                <pre>SELECT TagName, AlarmType, Priority, AlarmTime
+FROM AlarmHistory
+WHERE AlarmState = 'Active'
+ORDER BY Priority DESC, AlarmTime DESC</pre>
+                <p><strong>Alarm Summary by Priority (Last 7 Days):</strong></p>
+                <pre>SELECT 
+  Priority,
+  COUNT(*) AS AlarmCount,
+  AVG(DATEDIFF(second, AlarmTime, AckTime)) AS AvgResponseTime
+FROM AlarmHistory
+WHERE AlarmTime >= DATEADD(day, -7, GETDATE())
+GROUP BY Priority
+ORDER BY Priority</pre>
+                <h4>Production Queries</h4>
+                <p><strong>Daily Production Totals:</strong></p>
+                <pre>SELECT 
+  CAST(DateTime AS DATE) AS ProductionDate,
+  SUM(Value) AS TotalProduced
+FROM History
+WHERE TagName = 'Production_Counter'
+  AND DateTime >= DATEADD(day, -30, GETDATE())
+GROUP BY CAST(DateTime AS DATE)
+ORDER BY ProductionDate</pre>
+                <h4>Equipment Runtime</h4>
+                <p><strong>Motor Running Hours:</strong></p>
+                <pre>SELECT 
+  TagName,
+  SUM(CASE WHEN Value = 1 THEN 1 ELSE 0 END) * 5 / 3600.0 AS RunningHours
+FROM History
+WHERE TagName LIKE 'Motor%_Running'
+  AND DateTime >= DATEADD(day, -30, GETDATE())
+GROUP BY TagName</pre>
+                <h4>Data Quality Check</h4>
+                <p><strong>Find Bad Quality Data:</strong></p>
+                <pre>SELECT TagName, DateTime, Value, wwQualityRule
+FROM History
+WHERE wwQualityRule <> 'Good'
+  AND DateTime >= DATEADD(hour, -24, GETDATE())
+ORDER BY DateTime DESC</pre>
+                <h4>Performance Query</h4>
+                <p><strong>OEE Calculation:</strong></p>
+                <pre>SELECT 
+  CAST(DateTime AS DATE) AS Date,
+  AVG(Availability) * AVG(Performance) * AVG(Quality) AS OEE
+FROM (
+  SELECT DateTime,
+    SUM(CASE WHEN Running = 1 THEN 1 ELSE 0 END) / COUNT(*) AS Availability,
+    AVG(ActualRate / TargetRate) AS Performance,
+    SUM(GoodParts) / SUM(TotalParts) AS Quality
+  FROM ProductionData
+  WHERE DateTime >= DATEADD(day, -30, GETDATE())
+  GROUP BY DateTime
+) AS Subquery
+GROUP BY CAST(DateTime AS DATE)</pre>
+                <h4>Query Best Practices</h4>
+                <ul>
+                    <li>Always use date filters to limit data range</li>
+                    <li>Index commonly queried columns (TagName, DateTime)</li>
+                    <li>Use parameterized queries to prevent SQL injection</li>
+                    <li>Test queries on development database first</li>
+                    <li>Consider query performance impact on production system</li>
+                </ul>`
+            }
+        };
+
+        // Add click listeners to all topics
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.topic').forEach(function(topic) {
+                topic.addEventListener('click', function() {
+                    const key = this.getAttribute('data-topic');
+                    if (content[key]) {
+                        document.getElementById('modalTitle').textContent = content[key].title;
+                        document.getElementById('modalBody').innerHTML = content[key].body;
+                        document.getElementById('modal').classList.add('active');
+                    }
+                });
+            });
+
+            // Close button
+            document.getElementById('closeBtn').addEventListener('click', function() {
+                document.getElementById('modal').classList.remove('active');
+            });
+
+            // Close on background click
+            document.getElementById('modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
